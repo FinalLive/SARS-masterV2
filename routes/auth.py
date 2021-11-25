@@ -21,7 +21,7 @@ def login():
         password = request.form["password"]
         password_encode = password.encode("utf-8")
         password_encrypted = bcrypt.hashpw(password_encode, seed)
-        exists = db.session.query(Usuario.id).where(email=email).first() is not None
+        exists = db.session.query(Usuario.id).where(Usuario.email=email).first() is not None
         
         if email and password_encrypted in exists: 
                 session['usuario_id'] = Usuario.id
@@ -42,13 +42,13 @@ def registrar():
         password = request.form["password"]
         password_encode = password.encode("utf-8")
         password_encrypted = bcrypt.hashpw(password_encode, seed)
-        exists = db.session.query(Usuario.id).where(email=email).scalar() is not None
+        exists = db.session.query(Usuario.id).where(Usuario.email=email).scalar() is not None
         
-        if nombre and password_encrypted in exists:#passencode - 2passencrypted
+        if nombre and password_encrypted in exists:#passencode - 2passencrypted 
             session['usuario_id'] = Usuario.id
             return redirect(url_for('auth.dashboard'))
 
-        new_user = Usuario(nombre, email, password_encrypted)
+        new_user = Usuario(email, password_encrypted, nombre)
         db.session.add(new_user)
         db.session.commit()
 
