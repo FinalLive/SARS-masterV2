@@ -1,0 +1,33 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="col-md-5 offset-md-4-">
+    <div class="card card-body">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <p></p>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {%endfor%}
+        {% endif %}
+        {% endwith %}
+        <form action="/registrar" method="post">
+            <div class="from-group mb-2">
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="from-group mb-2">
+            <input type="text" name="email" class="form-control" placeholder="Correo electronico">
+            </div>
+            <div class="from-group mb-2">
+            <input type="password" name="password" class="form-control" placeholder="Clave">
+            </div>
+            <div class="from-group mb-2">
+            <button type="submit" class="btn btn-primary btn-block">
+                Editar
+            </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
